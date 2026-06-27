@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VEXA WEAR — ملابس بتفرق</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0A0A0A;
+  --white:#FFFFFF;
+  --orange:#FF4D00;
+  --orange-dim:#cc3d00;
+  --gray:#F5F5F5;
+  --mid:#888;
+  --border:#E0E0E0;
+  --card:#FAFAFA;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+
+/* ===== ANNOUNCEMENT BAR ===== */
+.announce{
+  background:var(--orange);
+  color:var(--white);
+  text-align:center;
+  padding:9px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.5px;
+}
+
+/* ===== NAV ===== */
+nav{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;
+  letter-spacing:3px;
+  color:var(--black);
+  text-decoration:none;
+}
+.nav-logo span{color:var(--orange)}
+
+.nav-links{
+  display:flex;gap:36px;list-style:none;
+}
+.nav-links a{
+  font-size:13px;font-weight:600;
+  color:var(--black);text-decoration:none;
+  letter-spacing:1px;
+  transition:color .2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;right:0;
+  width:0;height:2px;background:var(--orange);
+  transition:width .2s;
+}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--orange)}
+
+.nav-actions{display:flex;gap:16px;align-items:center}
+
+.nav-icon-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:19px;position:relative;
+  transition:transform .2s;
+}
+.nav-icon-btn:hover{transform:scale(1.1)}
+
+.cart-badge{
+  position:absolute;top:-6px;left:-6px;
+  background:var(--orange);color:white;
+  width:18px;height:18px;border-radius:50%;
+  font-size:10px;font-weight:700;font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ===== HERO ===== */
+.hero{
+  height:92vh;
+  background:var(--black);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero-text-side{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 60px 80px 80px;
+  position:relative;z-index:2;
+}
+
+.hero-eyebrow{
+  font-size:11px;font-weight:700;
+  letter-spacing:4px;
+  color:var(--orange);
+  margin-bottom:20px;
+  font-family:'Inter',sans-serif;
+}
+
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(80px, 11vw, 140px);
+  line-height:.9;
+  color:var(--white);
+  letter-spacing:2px;
+}
+
+.hero-title .accent{
+  color:transparent;
+  -webkit-text-stroke:2px var(--orange);
+}
+
+.hero-sub{
+  margin-top:28px;
+  font-size:15px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.55);
+  max-width:340px;
+  font-family:'Inter',sans-serif;
+}
+
+.hero-ctas{
+  display:flex;gap:14px;margin-top:40px;
+}
+
+.btn-primary{
+  background:var(--orange);
+  color:white;
+  border:none;
+  padding:15px 36px;
+  font-family:'Cairo',sans-serif;
+  font-size:14px;font-weight:700;
+  cursor:pointer;
+  letter-spacing:1px;
+  transition:all .2s;
+  clip-path:polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-primary:hover{background:var(--orange-dim);transform:translateY(-2px)}
+
+.btn-outline{
+  background:transparent;
+  color:white;
+  border:1.5px solid rgba(255,255,255,0.3);
+  padding:15px 36px;
+  font-family:'Cairo',sans-serif;
+  font-size:14px;font-weight:700;
+  cursor:pointer;
+  letter-spacing:1px;
+  transition:all .2s;
+}
+.btn-outline:hover{border-color:white;background:rgba(255,255,255,0.05)}
+
+.hero-image-side{
+  position:relative;overflow:hidden;
+}
+
+/* SVG placeholder model silhouette */
+.hero-model-bg{
+  width:100%;height:100%;
+  background:linear-gradient(145deg,#1a1a1a 0%, #0f0f0f 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+
+.hero-model-bg::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 80%, rgba(255,77,0,0.15) 0%, transparent 65%);
+}
+
+.hero-model-svg{
+  width:55%;
+  opacity:.9;
+  filter:drop-shadow(0 0 40px rgba(255,77,0,0.3));
+}
+
+.hero-badge{
+  position:absolute;bottom:40px;right:40px;
+  background:var(--orange);
+  width:100px;height:100px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:spin-slow 8s linear infinite;
+}
+.hero-badge-text{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:13px;letter-spacing:2px;color:white;
+  text-align:center;line-height:1.3;
+}
+
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+
+.hero-stats{
+  position:absolute;bottom:40px;right:0;left:0;
+  padding:0 60px 0 80px;
+  display:flex;gap:48px;
+  z-index:3;
+}
+
+.hero-stat .num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;color:white;letter-spacing:1px;
+}
+.hero-stat .lbl{
+  font-size:11px;color:rgba(255,255,255,0.4);
+  letter-spacing:2px;font-family:'Inter',sans-serif;
+}
+
+/* ===== CATEGORIES ===== */
+.cats-section{padding:72px 48px}
+.section-eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:4px;
+  color:var(--orange);margin-bottom:8px;
+  font-family:'Inter',sans-serif;
+}
+.section-title{font-size:36px;font-weight:900;margin-bottom:40px}
+
+.cats-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:16px;height:440px;
+}
+
+.cat-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  border-radius:4px;
+}
+
+.cat-bg{
+  width:100%;height:100%;
+  display:flex;align-items:flex-end;
+  transition:transform .5s;
+}
+.cat-card:hover .cat-bg{transform:scale(1.04)}
+
+.cat-card:nth-child(1) .cat-bg{background:linear-gradient(135deg,#1c1c1c,#333)}
+.cat-card:nth-child(2) .cat-bg{background:linear-gradient(135deg,#2a1a0e,#4a2e18)}
+.cat-card:nth-child(3) .cat-bg{background:linear-gradient(135deg,#0e1a2a,#1a3050)}
+
+.cat-label{
+  position:absolute;bottom:0;right:0;left:0;
+  padding:28px 24px;
+  background:linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%);
+}
+.cat-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;color:white;letter-spacing:2px;
+}
+.cat-count{font-size:12px;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;margin-top:2px}
+
+.cat-card .cat-icon{
+  width:80px;height:80px;
+  margin:auto;
+  opacity:.4;
+  font-size:60px;
+  display:flex;align-items:center;justify-content:center;
+  color:white;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);
+}
+
+/* ===== PRODUCTS ===== */
+.products-section{
+  padding:72px 48px;
+  background:var(--gray);
+}
+
+.section-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:40px;
+}
+
+.filter-tabs{
+  display:flex;gap:8px;
+}
+.filter-tab{
+  background:none;border:1.5px solid var(--border);
+  padding:8px 20px;font-family:'Cairo',sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:1px;
+  cursor:pointer;transition:all .2s;color:var(--mid);
+  border-radius:2px;
+}
+.filter-tab.active,.filter-tab:hover{
+  background:var(--black);color:white;border-color:var(--black);
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.product-card{
+  background:white;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:border-color .2s, box-shadow .2s;
+  border-radius:4px;
+  overflow:hidden;
+}
+.product-card:hover{
+  border-color:var(--border);
+  box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+
+.product-img{
+  aspect-ratio:3/4;
+  background:#e8e8e8;
+  position:relative;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.product-img-inner{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:70px;
+  transition:transform .5s;
+}
+.product-card:hover .product-img-inner{transform:scale(1.06)}
+
+.product-tag{
+  position:absolute;top:12px;right:12px;
+  background:var(--orange);color:white;
+  font-size:10px;font-weight:700;padding:3px 8px;
+  letter-spacing:1.5px;font-family:'Inter',sans-serif;
+}
+.product-tag.new-tag{background:var(--black)}
+
+.product-quick{
+  position:absolute;bottom:-44px;left:0;right:0;
+  background:var(--black);color:white;
+  padding:12px;text-align:center;
+  font-size:12px;font-weight:700;letter-spacing:1.5px;
+  transition:bottom .25s;cursor:pointer;
+  border:none;font-family:'Cairo',sans-serif;width:100%;
+}
+.product-card:hover .product-quick{bottom:0}
+
+.product-info{padding:14px 16px 18px}
+.product-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.product-cat{font-size:11px;color:var(--mid);letter-spacing:1px;margin-bottom:10px;font-family:'Inter',sans-serif}
+
+.product-sizes{
+  display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap;
+}
+.size-dot{
+  width:28px;height:28px;
+  border:1.5px solid var(--border);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:var(--mid);
+  cursor:pointer;transition:all .15s;
+  font-family:'Inter',sans-serif;
+}
+.size-dot:hover,.size-dot.sel{border-color:var(--black);color:var(--black);}
+.size-dot.sel{background:var(--black);color:white;}
+
+.product-footer{
+  display:flex;align-items:center;justify-content:space-between;
+}
+.product-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;letter-spacing:1px;
+}
+.product-old{
+  font-size:12px;color:var(--mid);
+  text-decoration:line-through;
+  font-family:'Inter',sans-serif;
+  margin-right:6px;
+}
+.add-cart-btn{
+  background:var(--orange);border:none;
+  color:white;padding:8px 16px;
+  font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:background .2s;
+  border-radius:2px;
+}
+.add-cart-btn:hover{background:var(--orange-dim)}
+
+/* ===== BANNER ===== */
+.mid-banner{
+  background:var(--black);
+  padding:80px 48px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;
+}
+.mid-banner-text{}
+.mid-banner h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,6vw,80px);
+  color:white;line-height:1;letter-spacing:2px;
+  margin-bottom:20px;
+}
+.mid-banner h2 em{color:var(--orange);font-style:normal}
+.mid-banner p{
+  color:rgba(255,255,255,.5);
+  line-height:1.8;font-size:14px;
+  font-family:'Inter',sans-serif;
+  max-width:360px;margin-bottom:32px;
+}
+
+.perks{display:flex;flex-direction:column;gap:16px}
+.perk{
+  display:flex;align-items:center;gap:14px;
+  color:rgba(255,255,255,.7);font-size:13px;
+}
+.perk-icon{
+  width:40px;height:40px;min-width:40px;
+  border:1px solid rgba(255,77,0,.4);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+
+.mid-banner-visual{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.mini-card{
+  background:#1a1a1a;border-radius:4px;
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:48px;
+  transition:background .3s;
+}
+.mini-card:hover{background:#222}
+.mini-card:first-child{grid-column:span 2;aspect-ratio:2/1;font-size:64px}
+
+/* ===== ABOUT ===== */
+.about-section{
+  padding:100px 48px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;
+}
+.about-label{
+  font-size:11px;letter-spacing:4px;font-weight:700;
+  color:var(--orange);margin-bottom:16px;
+  font-family:'Inter',sans-serif;
+}
+.about-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,5vw,64px);line-height:1;
+  letter-spacing:1px;margin-bottom:24px;
+}
+.about-body{
+  color:var(--mid);line-height:1.9;
+  font-size:14px;font-family:'Inter',sans-serif;
+}
+.about-nums{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:24px;margin-top:40px;
+}
+.about-num .big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:52px;color:var(--orange);letter-spacing:1px;
+}
+.about-num .small{
+  font-size:12px;color:var(--mid);
+  letter-spacing:2px;font-family:'Inter',sans-serif;
+}
+
+.about-visual{
+  background:#0A0A0A;
+  border-radius:4px;
+  aspect-ratio:3/4;
+  display:flex;align-items:center;justify-content:center;
+  font-size:120px;
+  position:relative;overflow:hidden;
+}
+.about-visual::after{
+  content:'VEXA';
+  position:absolute;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:120px;color:rgba(255,77,0,.08);
+  letter-spacing:10px;
+  bottom:-20px;right:-10px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--black);
+  color:rgba(255,255,255,.6);
+  padding:60px 48px 32px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;margin-bottom:48px;
+}
+.footer-brand{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;color:white;letter-spacing:3px;
+  margin-bottom:14px;
+}
+.footer-brand span{color:var(--orange)}
+.footer-desc{font-size:13px;line-height:1.8;font-family:'Inter',sans-serif}
+
+.footer-col h4{
+  font-size:11px;font-weight:700;letter-spacing:3px;
+  color:white;margin-bottom:18px;
+  font-family:'Inter',sans-serif;
+}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{
+  color:rgba(255,255,255,.5);
+  text-decoration:none;font-size:13px;
+  transition:color .2s;font-family:'Inter',sans-serif;
+}
+.footer-col a:hover{color:var(--orange)}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;font-family:'Inter',sans-serif;
+}
+.socials{display:flex;gap:12px}
+.soc-btn{
+  width:36px;height:36px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;
+  transition:border-color .2s,background .2s;
+  text-decoration:none;
+}
+.soc-btn:hover{border-color:var(--orange);background:rgba(255,77,0,.1)}
+
+/* ===== CART DRAWER ===== */
+.cart-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.cart-overlay.open{opacity:1;pointer-events:all}
+
+.cart-drawer{
+  position:fixed;top:0;left:0;bottom:0;
+  width:400px;background:white;z-index:201;
+  transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+.cart-drawer.open{transform:translateX(0)}
+
+.cart-head{
+  padding:24px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-head h3{font-size:18px;font-weight:900;letter-spacing:1px}
+.cart-close{
+  background:none;border:1px solid var(--border);
+  width:32px;height:32px;cursor:pointer;border-radius:2px;
+  font-size:16px;
+}
+
+.cart-items{flex:1;overflow-y:auto;padding:20px}
+.cart-item{
+  display:flex;gap:14px;padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+.cart-item-img{
+  width:64px;height:80px;background:var(--gray);
+  border-radius:2px;display:flex;align-items:center;
+  justify-content:center;font-size:32px;min-width:64px;
+}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.cart-item-meta{font-size:11px;color:var(--mid);font-family:'Inter',sans-serif;margin-bottom:8px}
+.cart-item-price{font-family:'Bebas Neue',sans-serif;font-size:18px}
+.cart-item-remove{
+  background:none;border:none;color:var(--mid);
+  cursor:pointer;font-size:18px;padding:0;
+  transition:color .2s;
+}
+.cart-item-remove:hover{color:var(--orange)}
+
+.cart-footer{padding:20px;border-top:1px solid var(--border)}
+.cart-total{
+  display:flex;justify-content:space-between;
+  font-size:16px;font-weight:900;margin-bottom:16px;
+}
+.cart-total-price{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--orange)}
+.checkout-btn{
+  width:100%;background:var(--black);color:white;
+  border:none;padding:16px;
+  font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;letter-spacing:1px;
+  transition:background .2s;border-radius:2px;
+}
+.checkout-btn:hover{background:#222}
+.cart-empty{
+  text-align:center;padding:60px 20px;color:var(--mid);
+}
+.cart-empty .cart-empty-icon{font-size:48px;margin-bottom:12px}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:28px;right:28px;
+  background:var(--black);color:white;
+  padding:14px 22px;border-radius:4px;border-right:3px solid var(--orange);
+  font-size:14px;font-weight:600;
+  transform:translateY(80px);opacity:0;
+  transition:all .3s;z-index:300;
+  font-family:'Cairo',sans-serif;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-text-side{padding:60px 24px 40px}
+  .hero-image-side{height:340px}
+  .hero-stats{padding:0 24px;gap:28px}
+  .cats-section,.products-section,.about-section,footer{padding:48px 20px}
+  .cats-grid{grid-template-columns:1fr;height:auto;gap:12px}
+  .cat-bg{height:180px}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .mid-banner{grid-template-columns:1fr;padding:60px 20px}
+  .about-section{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .cart-drawer{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce">🔥 شحن مجاني على أوردرات فوق 500 جنيه — كود الخصم: VEXA10</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">VEXA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">المنتجات</a></li>
+    <li><a href="#cats">الكاتيجوريز</a></li>
+    <li><a href="#about">عن VEXA</a></li>
+    <li><a href="#contact">تواصل</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="nav-icon-btn" onclick="toggleCart()">
+      🛒
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="nav-icon-btn">🔍</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text-side">
+    <div class="hero-eyebrow">VEXA WEAR — COLLECTION 2025</div>
+    <h1 class="hero-title">
+      WEAR<br>
+      YOUR<br>
+      <span class="accent">EDGE</span>
+    </h1>
+    <p class="hero-sub">ملابس مش بس هدوم — هي موقفك. كل قطعة بتحكي قصة مختلفة.</p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تسوق الآن</button>
+      <button class="btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">اعرف أكتر</button>
+    </div>
+  </div>
+
+  <div class="hero-image-side">
+    <div class="hero-model-bg">
+      <!-- SVG model silhouette -->
+      <svg class="hero-model-svg" viewBox="0 0 300 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <ellipse cx="150" cy="58" rx="38" ry="44" fill="#2a2a2a"/>
+        <!-- Neck -->
+        <rect x="136" y="96" width="28" height="30" rx="4" fill="#2a2a2a"/>
+        <!-- Body / hoodie -->
+        <path d="M80 126 Q95 110 150 110 Q205 110 220 126 L240 200 Q245 240 240 280 L210 280 L200 420 L100 420 L90 280 L60 280 Q55 240 60 200 Z" fill="#FF4D00" opacity=".85"/>
+        <!-- Hood opening -->
+        <path d="M110 126 Q150 145 190 126 L180 110 Q150 125 120 110 Z" fill="#cc3d00"/>
+        <!-- Arms -->
+        <path d="M80 140 Q40 160 28 240 L55 248 Q62 180 90 168 Z" fill="#FF4D00" opacity=".85"/>
+        <path d="M220 140 Q260 160 272 240 L245 248 Q238 180 210 168 Z" fill="#FF4D00" opacity=".85"/>
+        <!-- Hands -->
+        <ellipse cx="40" cy="252" rx="18" ry="14" fill="#2a2a2a"/>
+        <ellipse cx="260" cy="252" rx="18" ry="14" fill="#2a2a2a"/>
+        <!-- Pants -->
+        <path d="M100 420 L90 540 L130 540 L150 470 L170 540 L210 540 L200 420 Z" fill="#1a1a1a"/>
+        <!-- Logo on hoodie -->
+        <text x="126" y="215" font-family="sans-serif" font-size="22" font-weight="900" fill="white" opacity=".7" letter-spacing="3">VEXA</text>
+        <!-- Shoes -->
+        <ellipse cx="110" cy="548" rx="30" ry="10" fill="#111"/>
+        <ellipse cx="190" cy="548" rx="30" ry="10" fill="#111"/>
+      </svg>
+
+      <div class="hero-badge">
+        <div class="hero-badge-text">NEW<br>DROP<br>2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats-section" id="cats">
+  <div class="section-eyebrow">BROWSE BY</div>
+  <h2 class="section-title">الكاتيجوريز</h2>
+  <div class="cats-grid">
+    <div class="cat-card">
+      <div class="cat-bg" style="height:100%">
+        <div class="cat-icon">👕</div>
+      </div>
+      <div class="cat-label">
+        <div class="cat-name">HOODIES & SWEATERS</div>
+        <div class="cat-count">24 منتج</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg" style="height:100%">
+        <div class="cat-icon">👖</div>
+      </div>
+      <div class="cat-label">
+        <div class="cat-name">PANTS</div>
+        <div class="cat-count">18 منتج</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-bg" style="height:100%">
+        <div class="cat-icon">🧢</div>
+      </div>
+      <div class="cat-label">
+        <div class="cat-name">ACCESSORIES</div>
+        <div class="cat-count">31 منتج</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">LATEST</div>
+      <h2 class="section-title" style="margin-bottom:0">أحدث المنتجات</h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts('all',this)">الكل</button>
+      <button class="filter-tab" onclick="filterProducts('hoodies',this)">هوديز</button>
+      <button class="filter-tab" onclick="filterProducts('pants',this)">بنطلونات</button>
+      <button class="filter-tab" onclick="filterProducts('tshirts',this)">تيشيرتات</button>
+    </div>
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- MID BANNER -->
+<section class="mid-banner">
+  <div class="mid-banner-text">
+    <h2>QUALITY<br><em>THAT</em><br>LASTS</h2>
+    <p>كل قطعة من VEXA WEAR بتتعمل بخامات عالية الجودة عشان تتحمل يومياتك وتفضل معاك لفترة طويلة.</p>
+    <div class="perks">
+      <div class="perk"><div class="perk-icon">🚚</div>شحن سريع لأي حتة في مصر</div>
+      <div class="perk"><div class="perk-icon">↩️</div>استرجاع مجاني خلال 14 يوم</div>
+      <div class="perk"><div class="perk-icon">🔒</div>دفع آمن 100%</div>
+      <div class="perk"><div class="perk-icon">💬</div>دعم عملاء 7 أيام في الأسبوع</div>
+    </div>
+  </div>
+  <div class="mid-banner-visual">
+    <div class="mini-card">🧵</div>
+    <div class="mini-card">🎨</div>
+    <div class="mini-card">✂️</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div>
+    <div class="about-label">WHO WE ARE</div>
+    <h2 class="about-title">VEXA<br>WEAR</h2>
+    <p class="about-body">
+      VEXA WEAR بدأت من فكرة بسيطة — إننا نعمل ملابس شبابية بأسلوب مختلف وخامات بتتكلم عن نفسها.
+      مش بنبيع هدوم بس، بنبيع موقف. كل كولكشن بيعكس طاقة ومرحلة مختلفة.
+    </p>
+    <div class="about-nums">
+      <div class="about-num"><div class="big">+5K</div><div class="small">عميل راضي</div></div>
+      <div class="about-num"><div class="big">3</div><div class="small">سنين خبرة</div></div>
+      <div class="about-num"><div class="big">73+</div><div class="small">منتج حالياً</div></div>
+      <div class="about-num"><div class="big">4.9⭐</div><div class="small">تقييم متوسط</div></div>
+    </div>
+  </div>
+  <div class="about-visual">🧥</div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">VEXA<span>.</span></div>
+      <p class="footer-desc">ملابس بتفرق — ماركة شبابية مصرية بتقدم أحدث الكولكشنز بأسلوب مميز وخامات عالية.</p>
+    </div>
+    <div class="footer-col">
+      <h4>SHOP</h4>
+      <ul>
+        <li><a href="#">هوديز</a></li>
+        <li><a href="#">تيشيرتات</a></li>
+        <li><a href="#">بنطلونات</a></li>
+        <li><a href="#">اكسسوارات</a></li>
+        <li><a href="#">أوفرات</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>HELP</h4>
+      <ul>
+        <li><a href="#">الشحن والتوصيل</a></li>
+        <li><a href="#">الاسترجاع</a></li>
+        <li><a href="#">جدول المقاسات</a></li>
+        <li><a href="#">تتبع الأوردر</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>CONTACT</h4>
+      <ul>
+        <li><a href="#">واتساب</a></li>
+        <li><a href="#">إنستجرام</a></li>
+        <li><a href="#">فيسبوك</a></li>
+        <li><a href="#">info@vexawear.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 VEXA WEAR. جميع الحقوق محفوظة.</span>
+    <div class="socials">
+      <a class="soc-btn" href="#">📸</a>
+      <a class="soc-btn" href="#">💬</a>
+      <a class="soc-btn" href="#">📘</a>
+      <a class="soc-btn" href="#">🎵</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>🛒 الكارت</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>الكارت فاضي لسه</p></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>الإجمالي</span>
+      <span class="cart-total-price" id="cartTotal">0 ج</span>
+    </div>
+    <button class="checkout-btn">إتمام الشراء ←</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  {id:1,name:'Oversized Hoodie',cat:'hoodies',emoji:'🧥',price:799,old:999,tag:'SALE',sizes:['S','M','L','XL'],color:'orange'},
+  {id:2,name:'VEXA Logo Tee',cat:'tshirts',emoji:'👕',price:349,old:null,tag:'NEW',sizes:['S','M','L','XL','XXL'],color:'black'},
+  {id:3,name:'Cargo Pants',cat:'pants',emoji:'👖',price:649,old:null,tag:null,sizes:['28','30','32','34'],color:'olive'},
+  {id:4,name:'Zip-Up Fleece',cat:'hoodies',emoji:'🧤',price:599,old:699,tag:'SALE',sizes:['S','M','L'],color:'gray'},
+  {id:5,name:'Graphic Tee Vol.2',cat:'tshirts',emoji:'🎨',price:299,old:null,tag:'NEW',sizes:['M','L','XL'],color:'white'},
+  {id:6,name:'Slim Joggers',cat:'pants',emoji:'🩳',price:449,old:null,tag:null,sizes:['S','M','L','XL'],color:'black'},
+  {id:7,name:'Drop Shoulder Tee',cat:'tshirts',emoji:'💪',price:329,old:null,tag:null,sizes:['S','M','L','XL'],color:'beige'},
+  {id:8,name:'Coach Jacket',cat:'hoodies',emoji:'🧢',price:899,old:1099,tag:'SALE',sizes:['M','L','XL'],color:'navy'},
+];
+
+let cart = [];
+let selectedSizes = {};
+let activeFilter = 'all';
+
+function filterProducts(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = activeFilter === 'all' ? products : products.filter(p => p.cat === activeFilter);
+
+  grid.innerHTML = filtered.map(p => {
+    const selSize = selectedSizes[p.id] || null;
+    return `
+    <div class="product-card" id="pc_${p.id}">
+      <div class="product-img">
+        <div class="product-img-inner">${p.emoji}</div>
+        ${p.tag ? `<div class="product-tag ${p.tag==='NEW'?'new-tag':''}">${p.tag}</div>` : ''}
+        <button class="product-quick" onclick="quickAdd(${p.id})">+ أضف للكارت</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-cat">${p.cat.toUpperCase()}</div>
+        <div class="product-sizes">
+          ${p.sizes.map(s => `<div class="size-dot${selSize===s?' sel':''}" onclick="selectSize(${p.id},'${s}')">${s}</div>`).join('')}
+        </div>
+        <div class="product-footer">
+          <div>
+            ${p.old ? `<span class="product-old">${p.old} ج</span>` : ''}
+            <span class="product-price">${p.price} ج</span>
+          </div>
+          <button class="add-cart-btn" onclick="addToCart(${p.id})">🛒</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectSize(id, size) {
+  selectedSizes[id] = size;
+  renderProducts();
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  const size = selectedSizes[id] || p.sizes[0];
+  const key = `${id}_${size}`;
+  const existing = cart.find(c => c.key === key);
+  if (existing) existing.qty++;
+  else cart.push({ key, id, name: p.name, emoji: p.emoji, price: p.price, size, qty: 1 });
+  updateCartUI();
+  showToast(`✅ ${p.name} اتضاف للكارت`);
+}
+
+function quickAdd(id) { addToCart(id); }
+
+function removeFromCart(key) {
+  cart = cart.filter(c => c.key !== key);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('cartTotal').textContent = total + ' ج';
+
+  const itemsEl = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+
+  if (cart.length === 0) {
+    itemsEl.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>الكارت فاضي لسه</p></div>';
+    footerEl.style.display = 'none';
+  } else {
+    footerEl.style.display = 'block';
+    itemsEl.innerHTML = cart.map(c => `
+      <div class="cart-item">
+        <div class="cart-item-img">${c.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${c.name}</div>
+          <div class="cart-item-meta">مقاس: ${c.size} · الكمية: ${c.qty}</div>
+          <div class="cart-item-price">${c.price * c.qty} ج</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart('${c.key}')">✕</button>
+      </div>
+    `).join('');
+  }
+}
+
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// Init
+renderProducts();
+</script>
+</body>
+</html>
